@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<!--код flask для отображения flash сообщений-->
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="container-md mt-2">
+    <div class="flash {{cat}}">{{msg}}</div>
+</div>
+{% endfor %}
+<div class="container-md mt-2">
+
+</div>
+<div class="container-md mt-2">
+  <form method="POST" class="row gx-3 gy-2 align-items-center">
+
+    <div class="col">
+
+      <select name="search_by_field" class="form-select" >
+        <option selected>Выбрать область деятельности</option>
+        {% for field in drop_list %}
+        <option value="{{field.name}}">{{field.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col">
+        <input  type="text" class="form-control" name="region" placeholder="регион, край, город, поселок...">
+    </div>
+
+    <div class="col">
+        <input  type="text" class="form-control" name="search_by" placeholder="профессия, должность. занятие...">
+    </div>
+
+
+    <div class="col-auto">
+        <button class="btn btn-outline-success" type="submit" onclick="loading"><b>Отправить</b></button>
+    </div>
+
+  </form>
+</div>
+
+<br>
+<div class="container-md mt-2">
+  <h4>По запросу <b class="text-success">{{keyword}}</b> найдено <b class="text-success">{{count}}</b> вакансий</h4>
+</div>
+
+<div class="container-md mt-2">
+    <hr>
+</div>
+
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-lg-8">
+        <table id="data" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Навык</th>
+                <th>Упоминаний всего</th>
+                <th>Упоминаний в %</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for skill in data %}
+            <tr>
+                <td>{{ skill.name }}</td>
+                <td>{{ skill.count }}</td>
+                <td>{{ skill.percent }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <a href="/post/">{{button}}</a>
+
+
+
+    </div>
+</div>
+
+
+
+<div class="container-md border border-1 border-light">
+  <a href="/" class="btn btn-outline-success" role="button"><b>На Главную</b></a>
+</div>
+
+
+{% endblock %}
+

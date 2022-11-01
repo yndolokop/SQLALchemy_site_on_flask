@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<!--код flask для отображения flash сообщений-->
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="container-md mt-2">
+<div class="flash {{cat}}">{{msg}}</div>
+</div>
+{% endfor %}
+<div class="container-md mt-2">
+    <form action="/login/" method="POST">
+    {{ form.hidden_tag() }}
+
+        {{ form.email.label(class="form-label") }}
+        {% if form.email.errors %}
+        {{ form.email(class="form-control") }}
+        <br>
+            <ul>
+                {% for error in form.email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        {{ form.email(class="form-control") }}
+        {% endif %}
+        <br>
+        {{ form.psw.label(class="form-label") }}
+        {{ form.psw(class="form-control") }}
+        {% if form.psw.errors %}
+        <br>
+            <ul>
+                {% for error in form.psw.errors %}
+                    <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+
+    <div class="mb-3 form-check">
+        {{ form.remember.label(class="form-check-label") }}
+        {{ form.remember(class="form-check-input") }}
+    </div>
+        {{ form.submit(class="btn btn-primary") }}
+
+
+      <hr align=left width="300px" >
+      <p><a href="{{url_for('auth.register')}}">Register</a>
+</form>
+</div>
+{% endblock %}

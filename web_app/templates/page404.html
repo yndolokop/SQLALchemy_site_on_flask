@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}
+{{ super() }}
+page404{% endblock %}
+{% block content %}
+<div class="container-md mt-2">
+    Страница не найдена, вернуться на <a href="{{url_for('index')}}">главную</a>
+</div>
+{% endblock %}

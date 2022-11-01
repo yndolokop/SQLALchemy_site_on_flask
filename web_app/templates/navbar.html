@@ -1,0 +1,38 @@
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid" style="max-width:100%">
+        <a class="navbar-brand" href="index" >
+          <img src="{{url_for('static', filename='images/logo.svg')}}" alt="" width="50" height="38" >
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto ">
+            <li class="nav-item active">
+              <a class="nav-link" href="https://hh.ru/search/vacancy?text=&fromSearchLine=true&area=1"><b>hh.ru</b><img
+                      src="{{url_for('static', filename='images/russia-hh-logo.png')}}" alt="" width="40" height="28"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('flask_parser.index')}}">
+                Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('flask_parser.contacts')}}">
+                Обратная связь</a>
+            </li>
+
+          </ul>
+          <div class="d-flex">
+            {% if session["user_id"] is defined %}
+            <a class="btn btn-outline-success" href="{{url_for('auth.logout')}}"><span>{{session["user_name"]}}</span></a>
+            {% else %}
+            <a class="btn btn-outline-success" href="{{url_for('auth.login')}}" role="button">Войти</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+    <br>
